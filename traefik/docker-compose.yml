@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+
+  traefik:
+    image: traefik:v2.5
+    restart: always
+    container_name: traefik
+    network_mode: host
+    volumes:
+      - type: bind
+        source: ./res/acme.json
+        target: /letsencrypt/acme.json
+      - ./config.yml:/traefik.yml:ro
+      - ./conf.d/:/conf.d/:ro
+      - ./res/users:/users:ro

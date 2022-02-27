@@ -1,0 +1,32 @@
+version: "3.2"
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
+    container_name: $CONT_ELASTICSEARCH
+    restart: on-failure
+    environment:
+      ES_JAVA_OPTS: "-Xms512m -Xmx1g"
+      MAX_MAP_COUNT: "64000"
+      bootstrap.memory_lock: "true"
+      discovery.type: "single-node"
+      cluster.name: "subsocial-cluster"
+      node.name: "subsocial-node"
+      xpack.security.enabled: "true"
+      xpack.security.audit.enabled: "true"
+      http.port: "$ES_PORT"
+      http.cors.enabled: "true"
+      http.cors.allow-credentials: "true"
+      http.cors.allow-origin: "https://dejavu.appbase.io"
+      http.cors.allow-headers: "X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization,Access-Control-Allow-Headers,Accept"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - "$EXPOSE_IP:$ES_PORT:$ES_PORT"
+    healthcheck:
+      test: curl -s $ES_URL
+      interval: 10s
+      timeout: 10s
+      retries: 4
+
+volumes:
+  es_data:

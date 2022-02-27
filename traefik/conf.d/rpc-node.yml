@@ -1,0 +1,64 @@
+http:
+  services:
+    ws-service:
+      loadbalancer:
+        healthcheck:
+          path: /health
+          port: 9933
+          interval: "5s"
+          timeout: "2s"
+        passHostHeader: false
+        servers:
+          - url: "http://localhost:9944"
+
+    rpc-service:
+      loadbalancer:
+        healthcheck:
+          path: /health
+          interval: "5s"
+          timeout: "2s"
+        passHostHeader: false
+        servers:
+          - url: "http://localhost:9933"
+
+  routers:
+    ws-router:
+      rule: "Host(`localhost`) && Path(`/`)"
+      service: ws-service
+      middlewares:
+        - secure
+      tls:
+        certResolver: "le"
+
+    rpc-router:
+      rule: "Host(`localhost`) && Path(`/http`)"
+      service: rpc-service
+      middlewares:
+        - secure-rpc
+      tls:
+        certResolver: "le"
+
+  middlewares:
+    secure-rpc:
+      chain:
+        middlewares:
+          - handle-preflight
+          - secure
+
+    secure:
+      headers:
+        accessControlMaxAge: 300
+        addVaryHeader: true
+        frameDeny: true
+        contentTypeNosniff: true
+
+    handle-preflight:
+      headers:
+        accessControlAllowOriginList:
+          - https://app.subsocial.network
+          - https://sub.id
+          - https://polkaverse.com
+          - https://polkadot.js.org
+        accessControlAllowMethods: [ OPTIONS, POST ]
+        accessControlAllowHeaders:
+          - Content-Type

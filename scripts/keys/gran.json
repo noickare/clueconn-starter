@@ -1,0 +1,10 @@
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"author_insertKey",
+    "params": [
+      "gran",
+      "monitor away guard estate idea truth enter height onion render message cram",
+      "0xdfc6868da1a097e821d9d55c605810ad187616d02ddfb95b1bd46141b279b484"
+    ]
+  }

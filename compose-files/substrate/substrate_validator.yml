@@ -1,0 +1,23 @@
+version: "3.2"
+services:
+  node-validator:
+    image: clueinfra/clueconn-node:latest
+    container_name: $CONT_NODE_VALIDATOR
+    user:
+      subsocial:subsocial
+    restart: on-failure
+    command: subsocial-node
+      --wasm-execution Compiled
+      --db-cache 2048
+      --validator
+      --port $SUBSTRATE_VALIDATOR_TCP_PORT
+      --rpc-port $SUBSTRATE_VALIDATOR_RPC_PORT
+      $SUBSTRATE_NODE_EXTRA_OPTS
+    volumes:
+      - node_validator_data:/data
+    ports:
+      - "127.0.0.1:$SUBSTRATE_VALIDATOR_RPC_PORT:$SUBSTRATE_VALIDATOR_RPC_PORT"
+      - "$EXPOSE_IP:$SUBSTRATE_VALIDATOR_TCP_PORT:$SUBSTRATE_VALIDATOR_TCP_PORT"
+
+volumes:
+  node_validator_data:

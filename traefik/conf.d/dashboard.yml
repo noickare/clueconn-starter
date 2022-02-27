@@ -1,0 +1,14 @@
+http:
+  routers:
+    dashboard:
+      rule: 'Host(`localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))'
+      service: api@internal
+      middlewares:
+        - auth
+      tls:
+        certResolver: "le"
+
+  middlewares:
+    auth:
+      basicAuth:
+        usersFile: "/users"

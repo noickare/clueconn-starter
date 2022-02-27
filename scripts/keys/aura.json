@@ -1,0 +1,10 @@
+{
+    "jsonrpc":"2.0",
+    "id":1,
+    "method":"author_insertKey",
+    "params": [
+      "aura",
+      "monitor away guard estate idea truth enter height onion render message cram",
+      "0x3cf5f361d85aa7a73b4c9b914279cf91dc9087d462f2dc724e885db93c437537"
+    ]
+  }
