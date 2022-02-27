@@ -52,7 +52,7 @@ export ES_OFFCHAIN_PASSWORD=""
 
 # Substrate related variables
 export SUBSTRATE_NODE_EXTRA_OPTS=""
-export SUBSTRATE_RPC_CORS="https://sub.id,https://polkaverse.com,https://polkadot.js.org,http://localhost,http://localhost:3000, https://clueconn.com"
+export SUBSTRATE_RPC_CORS="https://sub.id,https://polkaverse.com,https://polkadot.js.org,http://localhost,http://localhost:3000,https://clueconn.com"
 
 # Offchain related variables
 export OFFCHAIN_CORS="http://localhost"

@@ -14,7 +14,7 @@ services:
 
   ipfs-cluster:
     image: ipfs/ipfs-cluster:latest
-    container_name: subsocial-ipfs-cluster
+    container_name: clueconn-ipfs-cluster
     restart: on-failure
     depends_on:
       - $SERVICE_IPFS_NODE
@@ -24,7 +24,7 @@ services:
       CLUSTER_SECRET: $CLUSTER_SECRET # From shell variable if set
       CLUSTER_IPFSHTTP_NODEMULTIADDRESS: /dns4/${SERVICE_IPFS_NODE}/tcp/5001
       CLUSTER_CRDT_TRUSTEDPEERS: '' # Trust none by default
-      CLUSTER_RESTAPI_CORSALLOWEDORIGINS: '${OFFCHAIN_URL}'
+      CLUSTER_RESTAPI_CORSALLOWEDORIGINS: 'http://localhost'
       CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS: /ip4/0.0.0.0/tcp/9094 # Expose API
       CLUSTER_MONITORPINGINTERVAL: 1m # Peer discovery interval
     ports:
